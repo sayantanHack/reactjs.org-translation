@@ -31,12 +31,15 @@ if (shell.cd(transRepoName).code !== 0) {
   console.log(
     `${transRepoName} Can't find translation repo locally. Cloning...`,
   );
+  console.time(transRepoName);
   shell.exec(`git clone ${transUrl} ${transRepoName}`);
   console.log(`${transRepoName} Finished cloning.`);
+  console.timeEnd(transRepoName);
   shell.cd(transRepoName);
   shell.exec(`git remote add ${repository} ${originalUrl}`);
 }
 shell.exec(`git remote add ${repository} ${originalUrl}`);
+process.exit(0);
 
 // Pull from our own origin
 shell.exec(`git checkout ${defaultBranch}`);
